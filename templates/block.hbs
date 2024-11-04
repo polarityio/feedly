@@ -34,12 +34,12 @@
 
 {{#each filteredPagingData as |result index|}}
   <div class="search-result">
-    <a class="search-header" href="{{result.link}}">
+    <a class="search-header" href="{{result.canonicalUrl}}">
       {{!--
       nested links here are to ensure that web search is able to detect that a click on the nested spans
       shoudl be opened in a new tab
       --}}
-      <a class="d-flex align-items-center" href="{{result.link}}">
+      <a class="d-flex align-items-center" href="{{result.canonicalUrl}}">
         {{!-- Show favicon is available, if not available hide this element --}}
         <img class="site-icon" onerror="this.style.display='none'" alt="" src="https://www.google.com/s2/favicons?domain={{result.origin.htmlUrl}}?size=64">
         {{#if result.origin.title}}
@@ -53,6 +53,22 @@
       <span class="header-title">{{result.title}}</span>
     </a>
     <div class="description">{{result.summary.content}}</div>
+    {{#if (gt result.leoSummary.sentences.length 0)}}
+      <div class="p-action mt-1" {{action (toggle "__viewLeoSummary" result)}}>
+        {{#if result.__viewLeoSummary}}
+          Close Leo AI Summary {{fa-icon icon="chevron-up" fixedWidth=true}}
+        {{else}}
+          View Leo AI Summary {{fa-icon icon="chevron-down" fixedWidth=true}}
+        {{/if}}
+      </div>
+      {{#if result.__viewLeoSummary}}
+        <div class="leo-summary-container">
+          {{#each result.leoSummary.sentences as | summarySentence |}}
+            <div class="leo-summary">{{summarySentence.text}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}
   </div>
 {{/each}}
 
