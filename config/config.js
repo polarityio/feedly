@@ -11,7 +11,7 @@ module.exports = {
   ],
   styles: ['./styles/styles.less'],
   onDemandOnly: true,
-  defaultColor: 'light-pink',
+  defaultColor: 'light-gray',
   block: {
     component: {
       file: './components/block.js'
