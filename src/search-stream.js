@@ -26,11 +26,11 @@ async function searchStream(entity, options) {
 
   const apiResponse = await polarityRequest.request(requestOptions, options);
 
-  Logger.trace({ apiResponse }, 'Search Feedly API Response');
+  Logger.trace({ apiResponse }, 'Search Feedly Contents API Response');
 
   if (!SUCCESS_CODES.includes(apiResponse.statusCode)) {
     throw new ApiRequestError(
-      `Unexpected status code ${apiResponse.statusCode} received when making request to the Feedly API`,
+      `Unexpected status code ${apiResponse.statusCode} received when making request to the Feedly Content API`,
       {
         statusCode: apiResponse.statusCode,
         requestOptions: apiResponse.requestOptions
