@@ -10,7 +10,7 @@ async function searchStream(entity, options) {
   const Logger = getLogger();
 
   const requestOptions = {
-    uri: 'https://cloud.feedly.com/v3/search/contents',
+    uri: 'https://api.feedly.com/v3/search/contents',
     method: 'GET',
     qs: {
       q: entity.value,
