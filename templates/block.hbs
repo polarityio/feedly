@@ -22,7 +22,13 @@
         {{fa-icon "external-link-square" class="external-link-icon"}}
       </a>
     </div>    
-    <div class="pl-1 page-info p-footnote">Viewing search results {{pagingStartItem}} - {{pagingEndItem}} of {{pagingData.length}}</div>
+    <div class="pl-1 page-info p-footnote">
+      {{#if (gt pagingData.length pageSize)}}
+        Viewing search results {{pagingStartItem}} - {{pagingEndItem}} of {{pagingData.length}}
+      {{else}}
+        Viewing {{pagingData.length}} search results
+      {{/if}}
+    </div>
   </div>
 {{/if}}
 
@@ -86,24 +92,29 @@
 {{!-- Result Paging component --}}
 {{#if (gt pagingData.length pageSize)}}
   <div class="paging-bar">
-    <button class="btn paging-btn" {{action "firstPage"}} disabled={{isPrevButtonsDisabled}}>
-      {{fa-icon icon="angle-double-left" fixedWidth=false}}
-    </button>
-    <button class="btn paging-btn" {{action "prevPage"}} disabled={{isPrevButtonsDisabled}}>
-      {{fa-icon icon="angle-left" fixedWidth=false}}
-    </button>
-    <div class="paging-info">
-      {{#if (eq pageSize 1)}}
-        {{pagingStartItem}} of {{pagingData.length}}
-      {{else}}
-        {{pagingStartItem}} - {{pagingEndItem}} of {{pagingData.length}}
-      {{/if}}
+    <div>
+      Feedly
     </div>
-    <button class="btn paging-btn" {{action "nextPage"}} disabled={{isNextButtonDisabled}}>
-      {{fa-icon icon="angle-right" fixedWidth=false}}
-    </button>
-    <button class="btn paging-btn" {{action "lastPage"}} disabled={{isNextButtonDisabled}}>
-      {{fa-icon icon="angle-double-right" fixedWidth=false}}
-    </button>
+    <div>
+      <button class="btn paging-btn" {{action "firstPage"}} disabled={{isPrevButtonsDisabled}}>
+        {{fa-icon icon="angle-double-left" fixedWidth=false}}
+      </button>
+      <button class="btn paging-btn" {{action "prevPage"}} disabled={{isPrevButtonsDisabled}}>
+        {{fa-icon icon="angle-left" fixedWidth=false}}
+      </button>
+      <div class="paging-info">
+        {{#if (eq pageSize 1)}}
+          {{pagingStartItem}} of {{pagingData.length}}
+        {{else}}
+          {{pagingStartItem}} - {{pagingEndItem}} of {{pagingData.length}}
+        {{/if}}
+      </div>
+      <button class="btn paging-btn" {{action "nextPage"}} disabled={{isNextButtonDisabled}}>
+        {{fa-icon icon="angle-right" fixedWidth=false}}
+      </button>
+      <button class="btn paging-btn" {{action "lastPage"}} disabled={{isNextButtonDisabled}}>
+        {{fa-icon icon="angle-double-right" fixedWidth=false}}
+      </button>
+    </div>
   </div>
 {{/if}}

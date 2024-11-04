@@ -33,7 +33,8 @@ async function searchStream(entity, options) {
       `Unexpected status code ${apiResponse.statusCode} received when making request to the Feedly Content API`,
       {
         statusCode: apiResponse.statusCode,
-        requestOptions: apiResponse.requestOptions
+        requestOptions,
+        responseBody: apiResponse.body
       }
     );
   }
@@ -44,7 +45,7 @@ async function searchStream(entity, options) {
 
 /**
  * Removes image tags and the content of the tag
- * Removes <b>, and <br> tags but leaves the content between them
+ * Removes <b>, <br>, <p>, and <a> tags but leaves the content between them
  * @param body
  * @returns {*}
  */
@@ -54,7 +55,7 @@ function stripHtmlTagsFromSummary(body) {
       if (item.summary && item.summary.content) {
         item.summary.content = item.summary.content.replace(/<img[^>]*>/g, '');
         item.summary.content = item.summary.content.replace(
-          /(<b>|<\/b>|<br>|<\/br>)/g,
+          /(<b>|<\/b>|<br>|<\/br>|<p>|<\/p>|<\/a>|<a .*?>)/g,
           ''
         );
       }

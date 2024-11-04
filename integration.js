@@ -52,9 +52,8 @@ const doLookup = async (entities, options, cb) => {
   try {
     await async.parallelLimit(tasks, MAX_TASKS_AT_A_TIME);
   } catch (error) {
-    const errorAsPojo = parseErrorToReadableJSON(error);
-    Logger.error({ error: errorAsPojo }, 'Error in doLookup');
-    return cb(errorAsPojo);
+    Logger.error({ error }, 'Error in doLookup');
+    return cb(error);
   }
 
   Logger.trace({ lookupResults }, 'Lookup Results');
@@ -95,12 +94,15 @@ async function onMessage(payload, options, cb) {
     case 'search':
       try {
         const searchResult = await searchStream(payload.entity, options);
-        const searchResultObject = createResultObject(payload.entity, searchResult, options);
+        const searchResultObject = createResultObject(
+          payload.entity,
+          searchResult,
+          options
+        );
         cb(null, searchResultObject);
       } catch (error) {
-        const errorJson = parseErrorToReadableJSON(error);
-        Logger.error(errorJson, 'Error Searching Feedly');
-        return cb(errorJson);
+        Logger.error({ error }, 'Error Searching Feedly');
+        return cb(error);
       }
       break;
   }
