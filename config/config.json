@@ -56,7 +56,7 @@
     {
       "key": "streamId",
       "name": "Feedly Stream ID",
-      "description": "The ID of the Feedly stream you want to search",
+      "description": "The ID of the Feedly stream you want to search. Stream IDs will look like `enterprise/{{your_org}}/category/f37c627f-0dc3-496c-9c9f-56fccdf84c57`",
       "default": "",
       "type": "text",
       "userCanEdit": false,
