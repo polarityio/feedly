@@ -99,7 +99,14 @@ async function onMessage(payload, options, cb) {
           searchResult,
           options
         );
-        cb(null, searchResultObject);
+
+        if (searchResultObject.data === null) {
+          cb(null, {
+            noResults: true
+          });
+        } else {
+          cb(null, searchResultObject);
+        }
       } catch (error) {
         Logger.error({ error }, 'Error Searching Feedly');
         return cb(error);

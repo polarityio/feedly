@@ -107,12 +107,13 @@ polarity.export = PolarityComponent.extend({
 
     this.sendIntegrationMessage(payload)
       .then((result) => {
-        if (result.data.details.noResults) {
-          this.set('details.noResults', result.data.details.noResults);
+        if (result.noResults) {
+          this.set('details.noResults', true);
         } else {
           this.set('details.items', result.data.details.items);
+          this.set('block.data.summary', result.data.summary);
         }
-        this.set('block.data.summary', result.data.summary);
+
         this.set('details.showDisclaimer', false);
         this.set('details.disclaimerDeclined', false);
       })
